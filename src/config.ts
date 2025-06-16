@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 
 export const GAME_CONFIG = {
-  width: 800,
-  height: 600,
-  backgroundColor: '#87CEEB',
+  width: 1024,
+  height: 768,
+  backgroundColor: '#4A5D3A', // Dark green for farming theme
 } as const;
 
 export const createGameConfig = (

@@ -131,10 +131,9 @@ export class Grid {
    */
   private updateTileGrowth(tile: FarmTile, currentTime: number): void {
     if (tile.state === TileState.WATERED && tile.plantedTime && tile.wateredTime) {
-      const growthTime =
-        tile.cropType === CropType.WHEAT ? GAME_CONFIG.WHEAT_GROWTH_TIME : 0;
+      const growthTime = tile.cropType === CropType.WHEAT ? GAME_CONFIG.WHEAT_GROWTH_TIME : 0;
       const timeSinceWatered = currentTime - tile.wateredTime;
-      
+
       if (timeSinceWatered >= growthTime) {
         tile.state = TileState.HARVESTABLE;
       }
@@ -148,10 +147,7 @@ export class Grid {
    */
   isValidPosition(position: GridPosition): boolean {
     return (
-      position.x >= 0 &&
-      position.x < this.width &&
-      position.y >= 0 &&
-      position.y < this.height
+      position.x >= 0 && position.x < this.width && position.y >= 0 && position.y < this.height
     );
   }
 

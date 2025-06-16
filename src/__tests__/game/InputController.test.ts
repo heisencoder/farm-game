@@ -1,11 +1,13 @@
 import { InputController } from '@/game/InputController';
-import { Farmer } from '@/game/Farmer';
-import { FarmingAction } from '@/game/types';
 
 // Mock Farmer
-const mockFarmer = {
+interface MockFarmer {
+  move: jest.Mock;
+}
+
+const mockFarmer: MockFarmer = {
   move: jest.fn(),
-} as any;
+};
 
 // Mock Phaser input system
 const mockKey = {
@@ -25,11 +27,17 @@ const mockKeyboard = {
   addKey: jest.fn(() => mockKey),
 };
 
-const mockScene = {
+interface MockScene {
+  input: {
+    keyboard: typeof mockKeyboard;
+  };
+}
+
+const mockScene: MockScene = {
   input: {
     keyboard: mockKeyboard,
   },
-} as any;
+};
 
 // Mock Phaser KeyCodes
 const mockKeyCodes = {
@@ -40,7 +48,7 @@ const mockKeyCodes = {
 };
 
 // Mock Phaser globally
-(global as any).Phaser = {
+(global as { Phaser?: unknown }).Phaser = {
   Input: {
     Keyboard: {
       KeyCodes: mockKeyCodes,
@@ -54,7 +62,7 @@ describe('InputController', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    inputController = new InputController(mockScene, mockFarmer);
+    inputController = new InputController(mockScene as never, mockFarmer as never);
     farmingActionCallback = jest.fn();
     inputController.setFarmingActionCallback(farmingActionCallback);
   });
@@ -78,18 +86,12 @@ describe('InputController', () => {
 
   describe('movement input', () => {
     let downHandler: () => void;
-    let leftHandler: () => void;
-    let rightHandler: () => void;
-    let upHandler: () => void;
 
     beforeEach(() => {
       // Extract the handlers that were registered
       const calls = mockKey.on.mock.calls;
-      const downCall = calls.find(call => call[0] === 'down');
+      const downCall = calls.find((call) => call[0] === 'down');
       downHandler = downCall[1];
-      leftHandler = downCall[1];
-      rightHandler = downCall[1];
-      upHandler = downCall[1];
     });
 
     it('should handle down movement', () => {
@@ -103,10 +105,8 @@ describe('InputController', () => {
   describe('farming action input', () => {
     it('should call farming action callback for hoe action', () => {
       // Simulate farming action key press
-      const actionHandler = mockKey.on.mock.calls.find(
-        call => call[0] === 'down'
-      )?.[1];
-      
+      const actionHandler = mockKey.on.mock.calls.find((call) => call[0] === 'down')?.[1];
+
       if (actionHandler) {
         actionHandler();
         // Note: In practice, we'd need to distinguish between different action keys
@@ -115,8 +115,9 @@ describe('InputController', () => {
     });
 
     it('should not call callback if none is set', () => {
-      const newController = new InputController(mockScene, mockFarmer);
-      
+      const newController = new InputController(mockScene as never, mockFarmer as never);
+      expect(newController).toBeDefined();
+
       // Simulate action without callback set
       const actionHandler = mockKey.on.mock.calls[0]?.[1];
       if (actionHandler) {
@@ -129,7 +130,7 @@ describe('InputController', () => {
     it('should set farming action callback', () => {
       const newCallback = jest.fn();
       inputController.setFarmingActionCallback(newCallback);
-      
+
       // Callback should be updated (tested implicitly through action handling)
       expect(inputController).toBeDefined();
     });
@@ -138,7 +139,7 @@ describe('InputController', () => {
   describe('cleanup', () => {
     it('should remove all key listeners on destroy', () => {
       inputController.destroy();
-      
+
       expect(mockKey.removeAllListeners).toHaveBeenCalled();
     });
   });

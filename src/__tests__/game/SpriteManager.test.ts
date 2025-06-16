@@ -8,7 +8,13 @@ const mockSpriteGenerator = SpriteGenerator as jest.Mocked<typeof SpriteGenerato
 
 describe('SpriteManager', () => {
   let spriteManager: SpriteManager;
-  let mockScene: any;
+  let mockScene: {
+    textures: {
+      exists: jest.Mock;
+      remove: jest.Mock;
+      addCanvas: jest.Mock;
+    };
+  };
 
   beforeEach(() => {
     mockScene = {
@@ -72,9 +78,9 @@ describe('SpriteManager', () => {
 
     it('should mark sprites as loaded after loading', () => {
       expect(spriteManager.isLoaded()).toBe(false);
-      
+
       spriteManager.loadSprites();
-      
+
       expect(spriteManager.isLoaded()).toBe(true);
     });
   });

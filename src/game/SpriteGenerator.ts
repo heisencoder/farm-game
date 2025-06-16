@@ -124,17 +124,17 @@ export class SpriteGenerator {
     ];
 
     const colorMap: Record<string, string> = {
-      '0': PALETTE.BLACK,        // Background (transparent)
-      '3': PALETTE.DARK_BROWN,   // Boots
-      '4': PALETTE.BROWN,        // Eyes/mouth
-      '6': PALETTE.LIGHT_BROWN,  // Skin
-      'A': PALETTE.BLUE,         // Shirt
-      'C': PALETTE.DARK_GRAY,    // Tool handle
-      'F': PALETTE.WHITE,        // Eyes
+      '0': PALETTE.BLACK, // Background (transparent)
+      '3': PALETTE.DARK_BROWN, // Boots
+      '4': PALETTE.BROWN, // Eyes/mouth
+      '6': PALETTE.LIGHT_BROWN, // Skin
+      A: PALETTE.BLUE, // Shirt
+      C: PALETTE.DARK_GRAY, // Tool handle
+      F: PALETTE.WHITE, // Eyes
     };
 
     const pattern = patterns[direction] || patterns[0];
-    
+
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         const colorKey = pattern[y][x];
@@ -184,7 +184,7 @@ export class SpriteGenerator {
           ctx.fillRect(x, y, 1, 1);
         }
         break;
-        
+
       case 'planted':
         // Hoed earth with small green sprout
         ctx.fillStyle = PALETTE.DARK_BROWN;
@@ -201,7 +201,7 @@ export class SpriteGenerator {
         ctx.fillRect(14, 19, 1, 1);
         ctx.fillRect(17, 19, 1, 1);
         break;
-        
+
       case 'watered':
         // Darker, wet earth with growing plant
         ctx.fillStyle = PALETTE.DARK_BROWN;
@@ -219,12 +219,12 @@ export class SpriteGenerator {
         ctx.fillRect(18, 17, 1, 1);
         ctx.fillRect(15, 15, 2, 1);
         break;
-        
+
       case 'harvestable':
         // Full grown wheat
         ctx.fillStyle = PALETTE.DARK_BROWN;
         ctx.fillRect(4, 4, 24, 24);
-        
+
         // Wheat stalks
         ctx.fillStyle = PALETTE.YELLOW;
         ctx.fillRect(12, 8, 2, 12);
@@ -232,7 +232,7 @@ export class SpriteGenerator {
         ctx.fillRect(20, 9, 2, 11);
         ctx.fillRect(10, 10, 2, 10);
         ctx.fillRect(18, 7, 2, 13);
-        
+
         // Wheat tops
         ctx.fillStyle = PALETTE.ORANGE;
         ctx.fillRect(11, 8, 4, 2);
@@ -261,7 +261,7 @@ export class SpriteGenerator {
     ctx.strokeStyle = PALETTE.YELLOW;
     ctx.lineWidth = 2;
     ctx.strokeRect(1, 1, 30, 30);
-    
+
     // Corner highlights
     ctx.fillStyle = PALETTE.WHITE;
     ctx.fillRect(0, 0, 4, 4);

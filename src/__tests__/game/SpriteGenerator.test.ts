@@ -49,7 +49,7 @@ describe('SpriteGenerator', () => {
   describe('generateFarmer', () => {
     it('should create a 16x16 canvas', () => {
       const canvas = SpriteGenerator.generateFarmer();
-      
+
       expect(document.createElement).toHaveBeenCalledWith('canvas');
       expect(canvas.width).toBe(16);
       expect(canvas.height).toBe(16);
@@ -64,9 +64,9 @@ describe('SpriteGenerator', () => {
     });
 
     it('should default to direction 0 for invalid direction', () => {
-      const canvas1 = SpriteGenerator.generateFarmer(-1);
-      const canvas2 = SpriteGenerator.generateFarmer(0);
-      
+      SpriteGenerator.generateFarmer(-1);
+      SpriteGenerator.generateFarmer(0);
+
       // Both should result in the same number of fillRect calls
       expect(mockFillRect).toHaveBeenCalled();
     });
@@ -75,7 +75,7 @@ describe('SpriteGenerator', () => {
   describe('generateTile', () => {
     it('should create a 32x32 canvas', () => {
       const canvas = SpriteGenerator.generateTile('empty');
-      
+
       expect(document.createElement).toHaveBeenCalledWith('canvas');
       expect(canvas.width).toBe(32);
       expect(canvas.height).toBe(32);
@@ -83,7 +83,7 @@ describe('SpriteGenerator', () => {
 
     it('should handle all tile types', () => {
       const tileTypes = ['empty', 'hoed', 'planted', 'watered', 'harvestable'];
-      
+
       tileTypes.forEach((type) => {
         mockFillRect.mockClear();
         SpriteGenerator.generateTile(type);
@@ -93,14 +93,14 @@ describe('SpriteGenerator', () => {
 
     it('should render base grass for empty tiles', () => {
       SpriteGenerator.generateTile('empty');
-      
+
       // Should have calls for base grass and texture
       expect(mockFillRect).toHaveBeenCalled();
     });
 
     it('should render wheat for harvestable tiles', () => {
       SpriteGenerator.generateTile('harvestable');
-      
+
       // Should have many fillRect calls for wheat rendering
       expect(mockFillRect.mock.calls.length).toBeGreaterThan(10);
     });
@@ -109,7 +109,7 @@ describe('SpriteGenerator', () => {
   describe('generateCursor', () => {
     it('should create a 32x32 canvas', () => {
       const canvas = SpriteGenerator.generateCursor();
-      
+
       expect(document.createElement).toHaveBeenCalledWith('canvas');
       expect(canvas.width).toBe(32);
       expect(canvas.height).toBe(32);
@@ -117,7 +117,7 @@ describe('SpriteGenerator', () => {
 
     it('should draw selection border and corners', () => {
       SpriteGenerator.generateCursor();
-      
+
       expect(mockStrokeRect).toHaveBeenCalled();
       expect(mockFillRect).toHaveBeenCalled();
     });
@@ -130,25 +130,31 @@ describe('SpriteGenerator', () => {
         remove: jest.fn(),
         addCanvas: jest.fn(),
       },
-    } as any;
+    } as {
+      textures: {
+        exists: jest.Mock;
+        remove: jest.Mock;
+        addCanvas: jest.Mock;
+      };
+    };
 
     beforeEach(() => {
       jest.clearAllMocks();
     });
 
     it('should add canvas as texture to scene', () => {
-      const canvas = mockCreateElement() as any;
+      const canvas = mockCreateElement() as never;
       SpriteGenerator.canvasToTexture(mockScene, 'test-key', canvas);
-      
+
       expect(mockScene.textures.addCanvas).toHaveBeenCalledWith('test-key', canvas);
     });
 
     it('should remove existing texture before adding new one', () => {
       mockScene.textures.exists.mockReturnValue(true);
-      const canvas = mockCreateElement() as any;
-      
+      const canvas = mockCreateElement() as never;
+
       SpriteGenerator.canvasToTexture(mockScene, 'test-key', canvas);
-      
+
       expect(mockScene.textures.remove).toHaveBeenCalledWith('test-key');
       expect(mockScene.textures.addCanvas).toHaveBeenCalledWith('test-key', canvas);
     });

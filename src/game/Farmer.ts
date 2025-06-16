@@ -11,11 +11,7 @@ export class Farmer {
   private direction = 0; // 0=down, 1=left, 2=right, 3=up
   private isMoving = false;
 
-  constructor(
-    scene: Phaser.Scene,
-    startPosition: GridPosition,
-    spriteManager: SpriteManager,
-  ) {
+  constructor(scene: Phaser.Scene, startPosition: GridPosition, spriteManager: SpriteManager) {
     this.gridPosition = { ...startPosition };
     this.spriteManager = spriteManager;
 

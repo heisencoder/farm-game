@@ -4,7 +4,7 @@ import { TileState, CropType, GridPosition } from '@/game/types';
 describe('Grid', () => {
   let grid: Grid;
   const testPosition: GridPosition = { x: 5, y: 5 };
-  
+
   beforeEach(() => {
     grid = new Grid(10, 10);
   });
@@ -44,7 +44,7 @@ describe('Grid', () => {
       expect(grid.isValidPosition({ x: 0, y: 0 })).toBe(true);
       expect(grid.isValidPosition({ x: 9, y: 9 })).toBe(true);
       expect(grid.isValidPosition({ x: 5, y: 5 })).toBe(true);
-      
+
       expect(grid.isValidPosition({ x: -1, y: 0 })).toBe(false);
       expect(grid.isValidPosition({ x: 0, y: -1 })).toBe(false);
       expect(grid.isValidPosition({ x: 10, y: 0 })).toBe(false);
@@ -56,7 +56,7 @@ describe('Grid', () => {
     it('should set tile state successfully', () => {
       const success = grid.setTileState(testPosition, TileState.HOED);
       expect(success).toBe(true);
-      
+
       const tile = grid.getTile(testPosition);
       expect(tile!.state).toBe(TileState.HOED);
     });
@@ -75,7 +75,7 @@ describe('Grid', () => {
     it('should plant crop on hoed tile', () => {
       const currentTime = Date.now();
       const success = grid.plantCrop(testPosition, CropType.WHEAT, currentTime);
-      
+
       expect(success).toBe(true);
       const tile = grid.getTile(testPosition);
       expect(tile!.state).toBe(TileState.PLANTED);
@@ -99,7 +99,7 @@ describe('Grid', () => {
     it('should water planted tile', () => {
       const currentTime = Date.now();
       const success = grid.waterTile(testPosition, currentTime);
-      
+
       expect(success).toBe(true);
       const tile = grid.getTile(testPosition);
       expect(tile!.state).toBe(TileState.WATERED);
@@ -124,7 +124,7 @@ describe('Grid', () => {
 
     it('should harvest crop from harvestable tile', () => {
       const cropType = grid.harvestCrop(testPosition);
-      
+
       expect(cropType).toBe(CropType.WHEAT);
       const tile = grid.getTile(testPosition);
       expect(tile!.state).toBe(TileState.EMPTY);
@@ -145,13 +145,13 @@ describe('Grid', () => {
       const plantTime = 1000;
       const waterTime = 2000;
       const checkTime = waterTime + 6000; // After wheat growth time (5000ms)
-      
+
       grid.setTileState(testPosition, TileState.HOED);
       grid.plantCrop(testPosition, CropType.WHEAT, plantTime);
       grid.waterTile(testPosition, waterTime);
-      
+
       grid.updateTiles(checkTime);
-      
+
       const tile = grid.getTile(testPosition);
       expect(tile!.state).toBe(TileState.HARVESTABLE);
     });
@@ -160,13 +160,13 @@ describe('Grid', () => {
       const plantTime = 1000;
       const waterTime = 2000;
       const checkTime = waterTime + 3000; // Before wheat growth time
-      
+
       grid.setTileState(testPosition, TileState.HOED);
       grid.plantCrop(testPosition, CropType.WHEAT, plantTime);
       grid.waterTile(testPosition, waterTime);
-      
+
       grid.updateTiles(checkTime);
-      
+
       const tile = grid.getTile(testPosition);
       expect(tile!.state).toBe(TileState.WATERED);
     });
