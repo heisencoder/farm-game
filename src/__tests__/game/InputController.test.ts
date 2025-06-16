@@ -103,6 +103,22 @@ describe('InputController', () => {
   });
 
   describe('farming action input', () => {
+    it('should handle farming action when callback is set', () => {
+      const mockCallback = jest.fn();
+      inputController.setFarmingActionCallback(mockCallback);
+
+      // Directly call the private method to test the callback functionality
+      inputController['handleAction']('hoe' as never);
+      expect(mockCallback).toHaveBeenCalledWith('hoe');
+    });
+
+    it('should not crash when farming action triggered without callback', () => {
+      // Don't set a callback, directly test the private method
+      expect(() => {
+        inputController['handleAction']('hoe' as never);
+      }).not.toThrow();
+    });
+
     it('should call farming action callback for hoe action', () => {
       // Simulate farming action key press
       const actionHandler = mockKey.on.mock.calls.find((call) => call[0] === 'down')?.[1];

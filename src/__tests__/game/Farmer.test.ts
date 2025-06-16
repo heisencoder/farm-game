@@ -197,4 +197,23 @@ describe('Farmer', () => {
       expect(farmer.getIsMoving()).toBe(true);
     });
   });
+
+  describe('animation completion', () => {
+    it('should reset isMoving flag when animation completes', () => {
+      farmer.move(1);
+
+      // Get the onComplete callback from the tween call
+      const tweenCall = mockTweens.add.mock.calls[0]![0];
+      const onComplete = tweenCall.onComplete;
+
+      // Initially moving should be true
+      expect(farmer.getIsMoving()).toBe(true);
+
+      // Call the onComplete callback
+      onComplete();
+
+      // Now isMoving should be false
+      expect(farmer.getIsMoving()).toBe(false);
+    });
+  });
 });
