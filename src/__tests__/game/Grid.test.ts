@@ -171,4 +171,36 @@ describe('Grid', () => {
       expect(tile!.state).toBe(TileState.WATERED);
     });
   });
+
+  describe('getDimensions', () => {
+    it('should return correct dimensions', () => {
+      const dimensions = grid.getDimensions();
+      expect(dimensions.width).toBe(10);
+      expect(dimensions.height).toBe(10);
+    });
+  });
+
+  describe('getAllTiles', () => {
+    it('should return all tiles in the grid', () => {
+      const allTiles = grid.getAllTiles();
+      expect(allTiles).toHaveLength(10); // height (custom grid size)
+      expect(allTiles[0]).toHaveLength(10); // width (custom grid size)
+
+      // Verify structure
+      expect(allTiles[0]![0]).toEqual({
+        position: { x: 0, y: 0 },
+        state: TileState.EMPTY,
+      });
+    });
+
+    it('should return reference to actual tiles array', () => {
+      const allTiles = grid.getAllTiles();
+
+      // Modify a tile through grid methods
+      grid.setTileState({ x: 5, y: 5 }, TileState.HOED);
+
+      // Check that the returned array reflects the change
+      expect(allTiles[5]![5]!.state).toBe(TileState.HOED);
+    });
+  });
 });
