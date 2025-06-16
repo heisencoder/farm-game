@@ -149,7 +149,7 @@ describe('SpriteGenerator', () => {
 
     it('should add canvas as texture to scene', () => {
       const canvas = mockCreateElement('canvas') as never;
-      SpriteGenerator.canvasToTexture(mockScene as Phaser.Scene, 'test-key', canvas);
+      SpriteGenerator.canvasToTexture(mockScene as unknown as Phaser.Scene, 'test-key', canvas);
 
       expect(mockScene.textures.addCanvas).toHaveBeenCalledWith('test-key', canvas);
     });
@@ -158,7 +158,7 @@ describe('SpriteGenerator', () => {
       mockScene.textures.exists.mockReturnValue(true);
       const canvas = mockCreateElement('canvas') as never;
 
-      SpriteGenerator.canvasToTexture(mockScene as Phaser.Scene, 'test-key', canvas);
+      SpriteGenerator.canvasToTexture(mockScene as unknown as Phaser.Scene, 'test-key', canvas);
 
       expect(mockScene.textures.remove).toHaveBeenCalledWith('test-key');
       expect(mockScene.textures.addCanvas).toHaveBeenCalledWith('test-key', canvas);

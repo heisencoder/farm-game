@@ -25,7 +25,7 @@ describe('SpriteManager', () => {
       },
     };
 
-    spriteManager = new SpriteManager(mockScene as Phaser.Scene);
+    spriteManager = new SpriteManager(mockScene as unknown as Phaser.Scene);
     jest.clearAllMocks();
   });
 
