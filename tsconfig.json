@@ -45,7 +45,7 @@
     "allowJs": false,
     "checkJs": false,
 
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
