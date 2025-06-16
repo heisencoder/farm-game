@@ -81,7 +81,7 @@ export class MainScene extends Phaser.Scene {
    * @param _time - The current time.
    * @param _delta - The delta time in milliseconds since the last frame.
    */
-  update(_time: number, _delta: number): void {
+  override update(_time: number, _delta: number): void {
     // Future game logic will go here
   }
 }
