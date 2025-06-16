@@ -41,13 +41,13 @@ describe('Farming Action Logic', () => {
 
     it('should invalidate incorrect action combinations', () => {
       // Can't plant on empty tile
-      expect(TileState.EMPTY === TileState.HOED).toBe(false);
+      expect(TileState.EMPTY).not.toBe(TileState.HOED);
 
       // Can't water empty tile
-      expect(TileState.EMPTY === TileState.PLANTED).toBe(false);
+      expect(TileState.EMPTY).not.toBe(TileState.PLANTED);
 
       // Can't harvest planted tile (not ready yet)
-      expect(TileState.PLANTED === TileState.HARVESTABLE).toBe(false);
+      expect(TileState.PLANTED).not.toBe(TileState.HARVESTABLE);
     });
   });
 

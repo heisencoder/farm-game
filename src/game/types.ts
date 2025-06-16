@@ -58,4 +58,4 @@ export const GAME_CONFIG = {
   GRID_HEIGHT: 15,
   WHEAT_GROWTH_TIME: 5000, // 5 seconds for quick testing
   WATER_EFFECT_DURATION: 10000, // 10 seconds
-} as const;
+};

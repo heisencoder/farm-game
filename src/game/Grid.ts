@@ -23,7 +23,7 @@ export class Grid {
     for (let y = 0; y < this.height; y++) {
       grid[y] = [];
       for (let x = 0; x < this.width; x++) {
-        grid[y][x] = {
+        grid[y]![x] = {
           position: { x, y },
           state: TileState.EMPTY,
         };
@@ -41,7 +41,7 @@ export class Grid {
     if (!this.isValidPosition(position)) {
       return null;
     }
-    return this.tiles[position.y][position.x];
+    return this.tiles[position.y]![position.x]!;
   }
 
   /**
@@ -118,7 +118,7 @@ export class Grid {
   updateTiles(currentTime: number): void {
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
-        const tile = this.tiles[y][x];
+        const tile = this.tiles[y]![x]!;
         this.updateTileGrowth(tile, currentTime);
       }
     }

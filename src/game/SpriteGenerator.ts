@@ -133,11 +133,11 @@ export class SpriteGenerator {
       F: PALETTE.WHITE, // Eyes
     };
 
-    const pattern = patterns[direction] || patterns[0];
+    const pattern = patterns[direction] || patterns[0]!;
 
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
-        const colorKey = pattern[y][x];
+        const colorKey = pattern[y]![x]!;
         if (colorKey !== '0') {
           ctx.fillStyle = colorMap[colorKey] || PALETTE.BLACK;
           ctx.fillRect(x, y, 1, 1);

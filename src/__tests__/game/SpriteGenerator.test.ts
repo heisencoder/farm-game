@@ -14,17 +14,22 @@ const mockGetContext = jest.fn(() => ({
 
 // Mock createElement to return our mock canvas
 const originalCreateElement = document.createElement;
-const mockCreateElement = jest.fn(() => ({
-  width: 0,
-  height: 0,
-  getContext: mockGetContext,
-}));
+const mockCreateElement = jest.fn((tagName: string) => {
+  if (tagName === 'canvas') {
+    return {
+      width: 0,
+      height: 0,
+      getContext: mockGetContext,
+    } as unknown as HTMLCanvasElement;
+  }
+  return originalCreateElement.call(document, tagName);
+});
 
 describe('SpriteGenerator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Mock document.createElement for each test
-    document.createElement = mockCreateElement;
+    document.createElement = mockCreateElement as typeof document.createElement;
   });
 
   afterEach(() => {
@@ -143,17 +148,17 @@ describe('SpriteGenerator', () => {
     });
 
     it('should add canvas as texture to scene', () => {
-      const canvas = mockCreateElement() as never;
-      SpriteGenerator.canvasToTexture(mockScene, 'test-key', canvas);
+      const canvas = mockCreateElement('canvas') as never;
+      SpriteGenerator.canvasToTexture(mockScene as Phaser.Scene, 'test-key', canvas);
 
       expect(mockScene.textures.addCanvas).toHaveBeenCalledWith('test-key', canvas);
     });
 
     it('should remove existing texture before adding new one', () => {
       mockScene.textures.exists.mockReturnValue(true);
-      const canvas = mockCreateElement() as never;
+      const canvas = mockCreateElement('canvas') as never;
 
-      SpriteGenerator.canvasToTexture(mockScene, 'test-key', canvas);
+      SpriteGenerator.canvasToTexture(mockScene as Phaser.Scene, 'test-key', canvas);
 
       expect(mockScene.textures.remove).toHaveBeenCalledWith('test-key');
       expect(mockScene.textures.addCanvas).toHaveBeenCalledWith('test-key', canvas);

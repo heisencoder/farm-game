@@ -10,14 +10,12 @@ export type FarmingActionCallback = (action: FarmingAction) => void;
  * Handles input for player movement and farming actions.
  */
 export class InputController {
-  private scene: Phaser.Scene;
   private farmer: Farmer;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   private actionKeys: Record<string, Phaser.Input.Keyboard.Key>;
   private farmingActionCallback?: FarmingActionCallback;
 
   constructor(scene: Phaser.Scene, farmer: Farmer) {
-    this.scene = scene;
     this.farmer = farmer;
 
     // Create cursor keys for movement
@@ -46,10 +44,10 @@ export class InputController {
     this.cursors.up.on('down', () => this.handleMovement(3));
 
     // Action keys
-    this.actionKeys.H.on('down', () => this.handleAction(FarmingAction.HOE));
-    this.actionKeys.P.on('down', () => this.handleAction(FarmingAction.PLANT));
-    this.actionKeys.W.on('down', () => this.handleAction(FarmingAction.WATER));
-    this.actionKeys.SPACE.on('down', () => this.handleAction(FarmingAction.HARVEST));
+    this.actionKeys['H']!.on('down', () => this.handleAction(FarmingAction.HOE));
+    this.actionKeys['P']!.on('down', () => this.handleAction(FarmingAction.PLANT));
+    this.actionKeys['W']!.on('down', () => this.handleAction(FarmingAction.WATER));
+    this.actionKeys['SPACE']!.on('down', () => this.handleAction(FarmingAction.HARVEST));
   }
 
   /**

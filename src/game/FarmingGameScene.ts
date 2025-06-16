@@ -25,7 +25,7 @@ export class FarmingGameScene extends Phaser.Scene {
   /**
    * Create the game scene.
    */
-  override create(): void {
+  create(): void {
     // Initialize core systems
     this.grid = new Grid();
     this.spriteManager = new SpriteManager(this);
@@ -78,7 +78,7 @@ export class FarmingGameScene extends Phaser.Scene {
         sprite.setOrigin(0, 0);
         sprite.setDepth(0);
 
-        this.tileSprites[y][x] = sprite;
+        this.tileSprites[y]![x] = sprite;
       }
     }
   }
@@ -192,7 +192,7 @@ export class FarmingGameScene extends Phaser.Scene {
       return;
     }
 
-    const sprite = this.tileSprites[position.y][position.x];
+    const sprite = this.tileSprites[position.y]![position.x]!;
     const textureKey = this.spriteManager.getTileTextureKey(tile.state);
     sprite.setTexture(textureKey);
   }
@@ -271,13 +271,13 @@ export class FarmingGameScene extends Phaser.Scene {
   /**
    * Clean up when scene is destroyed.
    */
-  override destroy(): void {
+  destroy(): void {
     if (this.inputController) {
       this.inputController.destroy();
     }
     if (this.farmer) {
       this.farmer.destroy();
     }
-    super.destroy();
+    // Clean up scene resources
   }
 }
