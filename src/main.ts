@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
 import { createGameConfig } from './config';
-import { MainScene } from './scenes/MainScene';
+import { FarmingGameScene } from './game/FarmingGameScene';
 
 /**
  * Initialize and start the Phaser game.
  */
 const startGame = (): void => {
-  const config = createGameConfig([MainScene]);
+  const config = createGameConfig([FarmingGameScene]);
   new Phaser.Game(config);
 };
 
