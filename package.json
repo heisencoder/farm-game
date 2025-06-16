@@ -1,0 +1,46 @@
+{
+  "name": "vibe-farming-game",
+  "version": "0.1.0",
+  "description": "Vibe-coded Farming Simulation Game",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "check": "npm run lint && npm run format:check && npm run test"
+  },
+  "keywords": [
+    "game",
+    "phaser",
+    "farming",
+    "simulation"
+  ],
+  "author": "Matt Ball",
+  "license": "MIT",
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "@vitejs/plugin-basic-ssl": "^2.0.0",
+    "eslint": "^9.29.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-jsdoc": "^51.0.0",
+    "eslint-plugin-prettier": "^5.4.1",
+    "jest": "^30.0.0",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}
